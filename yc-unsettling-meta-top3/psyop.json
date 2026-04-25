@@ -1,0 +1,193 @@
+{
+  "sources": [
+    {
+      "tag": "agency",
+      "count": 3,
+      "min_score": 0.0744310080350481
+    },
+    {
+      "tag": "agentnoon",
+      "count": 3,
+      "min_score": 0.0821436376467966
+    },
+    {
+      "tag": "airwork",
+      "count": 3,
+      "min_score": 0.1083815103626012
+    },
+    {
+      "tag": "alima",
+      "count": 3,
+      "min_score": 0.067580651235286
+    },
+    {
+      "tag": "arc",
+      "count": 3,
+      "min_score": 0.087973110337105
+    },
+    {
+      "tag": "axis",
+      "count": 3,
+      "min_score": 0.0740538835169574
+    },
+    {
+      "tag": "complete",
+      "count": 3,
+      "min_score": 0.1014265715979583
+    },
+    {
+      "tag": "curacel",
+      "count": 3,
+      "min_score": 0.063866157535807
+    },
+    {
+      "tag": "eventual",
+      "count": 3,
+      "min_score": 0.0809201216637692
+    },
+    {
+      "tag": "flightcontrol",
+      "count": 3,
+      "min_score": 0.0995824321913284
+    },
+    {
+      "tag": "fresh-factory",
+      "count": 3,
+      "min_score": 0.0654434944708051
+    },
+    {
+      "tag": "lancedb",
+      "count": 3,
+      "min_score": 0.0709675341437009
+    },
+    {
+      "tag": "lifeat",
+      "count": 3,
+      "min_score": 0.0747467577212696
+    },
+    {
+      "tag": "nophin",
+      "count": 3,
+      "min_score": 0.0715213890003506
+    },
+    {
+      "tag": "olympian-motors",
+      "count": 3,
+      "min_score": 0.0752782719685312
+    },
+    {
+      "tag": "prembly-formerly-identitypass",
+      "count": 3,
+      "min_score": 0.0832260934416167
+    },
+    {
+      "tag": "rank-formerly-moni",
+      "count": 3,
+      "min_score": 0.06673019765925
+    },
+    {
+      "tag": "rebill",
+      "count": 3,
+      "min_score": 0.0578177344819093
+    },
+    {
+      "tag": "remedial-health",
+      "count": 3,
+      "min_score": 0.0992630738031627
+    },
+    {
+      "tag": "requestly",
+      "count": 3,
+      "min_score": 0.0937253961209728
+    },
+    {
+      "tag": "rownd",
+      "count": 3,
+      "min_score": 0.0763791817691562
+    },
+    {
+      "tag": "savein",
+      "count": 3,
+      "min_score": 0.0623275614670669
+    },
+    {
+      "tag": "seis",
+      "count": 3,
+      "min_score": 0.0868352784998879
+    },
+    {
+      "tag": "sero",
+      "count": 3,
+      "min_score": 0.0592574804911219
+    },
+    {
+      "tag": "shaped",
+      "count": 3,
+      "min_score": 0.0767875467959964
+    },
+    {
+      "tag": "smarthelio",
+      "count": 3,
+      "min_score": 0.04409295187492196
+    },
+    {
+      "tag": "spinach-ai",
+      "count": 3,
+      "min_score": 0.0969685048171146
+    },
+    {
+      "tag": "stably-ai",
+      "count": 3,
+      "min_score": 0.0923992078865151
+    },
+    {
+      "tag": "stairs-financial",
+      "count": 3,
+      "min_score": 0.0669946683368307
+    },
+    {
+      "tag": "t3-chat",
+      "count": 3,
+      "min_score": 0.0871701287089898
+    },
+    {
+      "tag": "the-ankler",
+      "count": 3,
+      "min_score": 0.093782696560884
+    },
+    {
+      "tag": "unlayer",
+      "count": 3,
+      "min_score": 0.081370395546382
+    },
+    {
+      "tag": "wyvern",
+      "count": 3,
+      "min_score": 0.0701202511348343
+    }
+  ],
+  "tags": [
+    "yc-unsettling-meta-top3"
+  ],
+  "function": {
+    "remote": "filesystem",
+    "owner": "ObjectiveAI",
+    "repository": "unsettlingness-ranker-vii",
+    "commit": null
+  },
+  "profile": {
+    "remote": "filesystem",
+    "owner": "ObjectiveAI",
+    "repository": "gpt-4o-mini-openrouter",
+    "commit": null
+  },
+  "strategy": {
+    "type": "swiss_system",
+    "pool": 10,
+    "rounds": 2
+  },
+  "invert": false,
+  "images": true,
+  "videos": false,
+  "count": 20
+}
