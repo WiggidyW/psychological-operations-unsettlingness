@@ -1,0 +1,84 @@
+{
+  "type": "alpha.vector.leaf.function",
+  "description": "Ranks scraped posts by how 'lingeringly disquieting' they are — prioritizing posts whose unease is quiet, unresolved, and recursive over those that are loud, gory, or shocking in the moment. Reads text and studies images and videos for ambiguity, implication, second-person framing, rewarding small details, and afterimage quality.",
+  "input_schema": {
+    "items": {
+      "type": "object",
+      "description": "A scraped post with text, images, and videos.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text content of the post."
+        },
+        "images": {
+          "type": "array",
+          "description": "Images attached to the post.",
+          "items": {
+            "type": "image",
+            "description": "An image URL."
+          }
+        },
+        "videos": {
+          "type": "array",
+          "description": "Videos attached to the post.",
+          "items": {
+            "type": "video",
+            "description": "A video URL."
+          }
+        }
+      },
+      "required": [
+        "text",
+        "images",
+        "videos"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"I am studying scraped social media posts. From the candidate posts below, show me the single one whose unease is most likely to linger in a reader's mind hours after a single first read. I am not looking for what is loudest, goriest, or most shocking in the moment — that kind of content discharges all its dread in the moment and is forgotten quickly. I am looking for the post whose disquiet is quiet, unresolved, and recursive: the kind that keeps quietly returning long after the reader has scrolled away. Reply with the post itself, exactly as it appears, with all of its text and any attached images and video.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Out of the following scraped posts, show me the one that most strongly implies something worse than what is actually shown — an aftermath without a visible cause, a sentence that trails off mid-thought, an off-screen sound, a frame that hints at harm just past its edge, a detail that suggests but never confirms. The post should make the reader fill in the worst part themselves. Reply with the post in full — its text and every attached image and video — exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"From the candidate posts below, show me the one that most invites the reader to step inside the scene as if it were happening to them. Look for second-person address ('you', 'your'), point-of-view shots, intimate or eye-level camera angles, and environments that resemble ordinary everyday spaces — kitchens, bedrooms, hallways, cars, stairwells — places the reader has been a hundred times before. The post should make the reader feel located inside it rather than safely watching from outside. Reply with the post itself, with its text and any attached images and video, exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"From the scraped posts below, show me the one whose images or video frames have the strongest 'afterimage quality' — the visual is most likely to keep replaying behind the reader's eyes after they have looked away. I am thinking about faces, postures, shapes, compositions, and small details that quietly reward a second look in a troubling way: background figures, reflections, partially visible objects, subtle inconsistencies, things at the edge of the frame that change the meaning of the scene. Reply with the post itself, with all of its text and every attached image and video, exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Imagine two posts side by side. One is loud — gory, shocking, screaming for attention — but once you scroll past it, it is gone; the dread discharged itself in the moment and left nothing behind. The other is quiet — almost ordinary at first glance — but something in it will not resolve, and you keep returning to it in your head for the rest of the day. From the candidate scraped posts below, show me the one that is most clearly the second kind: ambiguous, unresolved, recursive, the kind whose unease keeps quietly coming back. Reply with the post in full — its text and every attached image and video — exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "type": "alpha.vector.leaf.function",
+  "description": "Ranks scraped posts from most to least 'viscerally wrong' - posts that trigger a pre-conscious, gut-level recoil. Reads text and inspects images and videos for anatomical incongruity, decay, broken physics, bodily or psychological malfunction, and unsafe environments, weighting embodied wrongness over merely intellectual or political disturbance.",
+  "input_schema": {
+    "items": {
+      "type": "object",
+      "description": "A scraped post with text, images, and videos.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text content of the post."
+        },
+        "images": {
+          "type": "array",
+          "description": "Images attached to the post.",
+          "items": {
+            "type": "image",
+            "description": "An image URL."
+          }
+        },
+        "videos": {
+          "type": "array",
+          "description": "Videos attached to the post.",
+          "items": {
+            "type": "video",
+            "description": "A video URL."
+          }
+        }
+      },
+      "required": [
+        "text",
+        "images",
+        "videos"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"I'm researching social media posts that produce a strong, gut-level 'this is viscerally wrong' reaction — the kind of pre-conscious recoil from anatomical incongruity, body horror, decay, distorted senses, or violated physical reality. Out of the batch I just scraped, please send back the post that hits hardest in that embodied, nervous-system way. Treat any attached image or video as first-class evidence and reproduce the post exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"system\", \"content\": [{\"type\": \"text\", \"text\": \"You curate a feed of posts that depict bodily wrongness. Disqualified: posts whose disturbance is purely intellectual, political, sad-as-news, or merely controversial. Qualifying: posts where the body itself is wrong — anatomical incongruity, decomposition, illness, injury, parasitism, suffocation, drowning, freezing, or any breakdown of the integrity of a living body.\"}]}, {\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"From the scraped batch I just pulled, post the single item that most clearly qualifies. Give it back to me exactly as it appeared.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"I'm cataloging posts where the environment, physics, or cause-and-effect of the world feels fundamentally broken — distorted scale, wrong space, familiar settings turned threatening, sudden ruptures of normalcy, or scenes where basic expectations of safety quietly collapse. From the scraped batch below, surface the post that most strongly violates the way reality is supposed to behave. Reply with the post as-is, including any attached media.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Pretend you are scrolling these posts and your nervous system has to flinch before you've had time to think. Not 'this makes me sad', not 'this makes me angry at the world', not 'this is politically alarming' — I mean the kind of involuntary, pre-conscious 'no, no, no' that comes from looking at something that is bodily, sensorily, or environmentally wrong. Reply with the single post that produces the strongest involuntary recoil, exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Treat any attached images and videos as the primary signal — text is secondary, and a benign caption attached to viscerally wrong media still counts as viscerally wrong. From the batch below, please return the post whose visual or motion content is most disturbing at a gut level: anatomical incongruity, decay, sickly or cold palettes, body horror, broken physics, jerky or impossible movement, wrong-feeling sound or silence. Reply with the entire post as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + item[\"images\"] + item[\"videos\"] for item in input[\"items\"]]"
+      }
+    }
+  ]
+}

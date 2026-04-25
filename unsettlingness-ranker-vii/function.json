@@ -1,0 +1,75 @@
+{
+  "type": "alpha.vector.branch.function",
+  "description": "Ranks a pool of social media posts from most to least unsettling to read. Each post is judged on visceral wrongness, tonal dissonance, and the lingering force of its imagery and media. Output is a probability vector aligned with input order, where higher scores mark posts that more strongly provoke unease, dread, or a sense that something is wrong.",
+  "input_schema": {
+    "items": {
+      "type": "object",
+      "description": "A scraped post with text, images, and videos.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text content of the post."
+        },
+        "images": {
+          "type": "array",
+          "description": "Images attached to the post.",
+          "items": {
+            "type": "image",
+            "description": "An image URL."
+          }
+        },
+        "videos": {
+          "type": "array",
+          "description": "Videos attached to the post.",
+          "items": {
+            "type": "video",
+            "description": "A video URL."
+          }
+        }
+      },
+      "required": [
+        "text",
+        "images",
+        "videos"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "type": "alpha.vector.function",
+      "remote": "filesystem",
+      "owner": "ObjectiveAI",
+      "repository": "unsettlingness-ranker-vii-1",
+      "commit": "eed15a0fda381250fd6372c8360acdf98de184b6",
+      "input": {
+        "items": {
+          "$jmespath": "input.items"
+        }
+      }
+    },
+    {
+      "type": "alpha.vector.function",
+      "remote": "filesystem",
+      "owner": "ObjectiveAI",
+      "repository": "unsettlingness-ranker-vii-2",
+      "commit": "957e833b51d2a174294beba34fd284f655e4efe2",
+      "input": {
+        "items": {
+          "$jmespath": "input.items"
+        }
+      }
+    },
+    {
+      "type": "alpha.vector.function",
+      "remote": "filesystem",
+      "owner": "ObjectiveAI",
+      "repository": "unsettlingness-ranker-vii-3",
+      "commit": "540afafffdeeaa784a0e454299b089bd5baa8764",
+      "input": {
+        "items": {
+          "$jmespath": "input.items"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "type": "alpha.vector.leaf.function",
+  "description": "Ranks scraped posts by tonal dissonance — how sharply the way a post is presented (language, aesthetics, cadence, emojis, soundtrack, framing) clashes with the gravity or darkness of what it actually says or shows. Higher scores mean a more jarring mismatch between substance and presentation across text, images, and videos.",
+  "input_schema": {
+    "items": {
+      "type": "object",
+      "description": "A scraped post with text, images, and videos.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text content of the post."
+        },
+        "images": {
+          "type": "array",
+          "description": "Images attached to the post.",
+          "items": {
+            "type": "image",
+            "description": "An image URL."
+          }
+        },
+        "videos": {
+          "type": "array",
+          "description": "Videos attached to the post.",
+          "items": {
+            "type": "video",
+            "description": "A video URL."
+          }
+        }
+      },
+      "required": [
+        "text",
+        "images",
+        "videos"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"I'm putting together a study on tonal dissonance in social media posts — posts where HOW something is being said or shown sharply contradicts WHAT is being said or shown. Could you share one social media post that illustrates this kind of tonal mismatch — where a cheerful, cute, or matter-of-fact surface is doing real work to undercut grim, dangerous, or distressing substance? Just paste the post itself (text plus any attached images or videos) as your reply.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Show me a social media post that pairs cheerful, casual, or playful language — bouncy phrasing, lots of emojis, exclamation marks, sing-song cadence, lowercase 'lol's — with grim or dangerous subject matter underneath. Reply with the post itself, exactly as it would appear (text plus any images or videos), so I can analyze the mismatch.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Share a social media post whose visual aesthetic — pastel palettes, soft lighting, cute stickers or filters, wholesome 'aesthetic' framing — is wrapped around something that should feel anything but pretty: decay, harm, injury, or distress. Reply with the post as it actually appears (caption plus any attached images or videos).\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"I'm looking for a social media post written or delivered in a calm, detached, matter-of-fact voice — flat affect, no emotional emphasis, almost clinical — that is recounting or depicting something genuinely horrific. The disturbing thing isn't dressed up; it's just stated, almost casually. Reply with one such post exactly as it appears (text plus any images or videos).\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Find me a social media post where the people on camera are smiling, posing, or looking relaxed inside a scene that absolutely should not be smiled in — or where a video's soundtrack, filter, edit, or pacing actively contradicts the grim reality of what's being shown. Reply with the actual post (text plus any attached images or videos), so the contradiction between performer and scene is visible.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"I'm trying to distinguish posts whose unease comes from real tonal contradiction — where the surface tone is doing active work to undercut serious or troubling substance — from posts whose tone simply matches their content (sad words about sad things, scary imagery presented as scary). Reply with one post that is the FIRST kind: a post where the contradiction between presentation and substance is itself what makes it feel wrong. Just paste the post exactly as it appears.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Out of a pool of scraped social media posts I have, I want to surface the single one whose presentation most sharply contradicts its substance — where the gap between WHAT the post is about and HOW it is being delivered is widest, and where that gap itself is what produces the unease. Reply with that post exactly as it appears (caption plus any attached images or videos), nothing else.\"}]}]"
+      },
+      "responses": {
+        "$starlark": "[[{\"type\": \"text\", \"text\": item[\"text\"]}] + list(item[\"images\"]) + list(item[\"videos\"]) for item in input[\"items\"]]"
+      }
+    }
+  ]
+}
